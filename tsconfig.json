@@ -13,6 +13,7 @@
     "outDir": "./lib",
     "preserveConstEnums": true,
     "removeComments": true,
+    "listEmittedFiles": true,
     "typeRoots": [
       "./node_modules/@types"
     ]

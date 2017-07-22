@@ -1,8 +1,14 @@
 // import { randomBytes } from "crypto";
 
+export interface IOptions {
+  NaNValue: number;
+}
+
 export class Random {
 
   private readonly FLOAT_SIZE: number = 4;
+
+  constructor(private options: IOptions = { NaNValue: NaN }) { }
 
   public floatFromBuffer(quantity: number, buf: Buffer, fractionDigits: number = 15): number[] {
     const result: number[] = [];
@@ -12,7 +18,7 @@ export class Random {
     for (let i = 0; i < quantity; i++) {
       const float = buf.readFloatBE(i * this.FLOAT_SIZE, true);
       if (isNaN(float)) {
-        result.push(NaN);
+        result.push(this.options.NaNValue);
       } else {
         const absf = Math.abs(float);
         const exp = absf.toExponential(fractionDigits);
@@ -41,3 +47,5 @@ export class Random {
   //   return [];
   // }
 }
+
+export const NanBuffer = [127, 192, 0, 1];
