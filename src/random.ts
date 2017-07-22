@@ -10,17 +10,16 @@ export class Random {
       throw new Error("Buffer too small");
     }
     for (let i = 0; i < quantity; i++) {
-      let float = buf.readFloatBE(i * this.FLOAT_SIZE, true);
+      const float = buf.readFloatBE(i * this.FLOAT_SIZE, true);
       if (isNaN(float)) {
-        // 0x7fc00001
-        float = 0;
+        result.push(NaN);
+      } else {
+        const absf = Math.abs(float);
+        const exp = absf.toExponential(fractionDigits);
+        const digits = exp.slice(2, fractionDigits + 2);
+        const got = +("0.".concat(digits));
+        result.push(got);
       }
-      const absf = Math.abs(float);
-      const exp = absf.toExponential(fractionDigits);
-      const ag = exp.slice(2, fractionDigits + 2);
-      const na = +("0.".concat(ag));
-      // console.log(absf, exp, ag, na);
-      result.push(na);
     }
     return result;
   }
