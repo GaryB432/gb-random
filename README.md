@@ -1,2 +1,2 @@
 # gb-random
-Replacement implementation for Math.random
+An alternative implementation of Math.random using Node's crypto.getRandomBytes
