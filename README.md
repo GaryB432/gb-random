@@ -5,11 +5,14 @@
 # gb-random
 An alternative implementation of Math.random using crypto.getRandomBytes
 
+## Install
+`npm install gb-random --save`
+
 ## Usage
 
-> npm install gb-random --save
+### JavaScript
 
-```
+```javascript
 const gbrandom = require("gb-random");
 
 const rand = new gbrandom.Random();
@@ -32,3 +35,23 @@ rand.getRandoms(3).then(randoms => {
 });
 ```
 
+### TypeScript
+
+```typescript
+import { Random } from "gb-random";
+
+const random = new Random();
+
+async function hangOut(delay: number): Promise<NodeJS.Timer> {
+  return new Promise<NodeJS.Timer>((resolve) => setTimeout(resolve, delay))
+}
+
+async function getRandoms(quantity: number): Promise<number[]> {
+  return hangOut(2000).then(timer => {
+    clearTimeout(timer);
+    return random.getRandoms(quantity);
+  });
+}
+
+console.log(await getRandoms(2));
+```
