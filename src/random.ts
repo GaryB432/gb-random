@@ -1,4 +1,4 @@
-// import { randomBytes } from "crypto";
+import { randomBytes } from "crypto";
 
 export interface IOptions {
   NaNValue: number;
@@ -30,14 +30,24 @@ export class Random {
     return result;
   }
 
-  // private static async getRandom(): Promise<number> {
+  public async getRandoms(quantity: number): Promise<number[]> {
+
+    return new Promise<number[]>((resolve, reject) => setTimeout(() => {
+      randomBytes(quantity * this.FLOAT_SIZE, (err, buf) => {
+        if (err) { reject(err); }
+        resolve(this.floatFromBuffer(quantity, buf));
+      });
+    }, 3000));
+  }
+
+  // public async getRandom(): Promise<number> {
   //   randomBytes(4, (_err, buf) => {
-  //     const S = 15;
-  //     const float = buf.readFloatBE(0, true);
-  //     const absf = Math.abs(float);
-  //     const exp = absf.toExponential(S);
-  //     const ag = exp.slice(2, S + 2);
-  //     const na = +("0.".concat(ag));
+  //     // const S = 15;
+  //     // const float = buf.readFloatBE(0, true);
+  //     // const absf = Math.abs(float);
+  //     // const exp = absf.toExponential(S);
+  //     // const ag = exp.slice(2, S + 2);
+  //     // const na = +("0.".concat(ag));
   //     console.log(absf, exp, ag, na);
   //   });
   //   return new Promise<number>((resolve) => setTimeout(() => resolve(Math.random()), 3000));

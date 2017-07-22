@@ -28,3 +28,9 @@ test("Should handle NaN", t => {
   t.deepEqual(res, expected);
 });
 
+test("Should get randoms", async t => {
+  const NaNValue = 0.5;
+  const rand = new Random({ NaNValue });
+  const res = await rand.getRandoms(6);
+  t.is(res.length, 6);
+});
