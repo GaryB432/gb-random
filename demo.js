@@ -7,8 +7,8 @@ console.log(res); // [ 0.387939260590663, 0.301941157072183 ]
 
 console.log(gbrandom.NanBuffer); // [ 127, 192, 0, 1 ]
 
-const NaNValue = 0.5;
+const NaNValue = NaN;
 const nrand = new gbrandom.Random({ NaNValue });
-nrand.getRandoms(2).then(randoms => {
-  console.log(randoms); // [ 0.387939260590663, 0.301941157072183 ]
+nrand.getRandoms(3).then(randoms => {
+  console.log(randoms); // [ 0.387939260590663, NaN, 0.301941157072183 ]
 });

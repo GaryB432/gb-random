@@ -8,7 +8,7 @@ test("Should blow on small buffer", t => {
 
 test("Should handle NaN", t => {
   const rand = new Random();
-  const expected = [NaN, 0.387939260590663]
+  const expected = [0.5, 0.387939260590663]
   const res = rand.floatFromBuffer(2, Buffer.from([...NanBuffer, 1, 2, 3, 4, 5, 6, 7, 8]));
   t.deepEqual(res, expected);
 });
@@ -20,11 +20,11 @@ test("Should getFloatFromBuffer", t => {
   t.deepEqual(res, expected);
 });
 
-test("Should handle NaN", t => {
-  const NaNValue = 0.5;
+test("Should handle custom NaN", t => {
+  const NaNValue = NaN;
   const rand = new Random({ NaNValue });
-  const expected = [NaNValue, 0.387939260590663]
-  const res = rand.floatFromBuffer(2, Buffer.from([...NanBuffer, 1, 2, 3, 4, 5, 6, 7, 8]));
+  const expected = [0.387939260590663, NaNValue]
+  const res = rand.floatFromBuffer(2, Buffer.from([1, 2, 3, 4, ...NanBuffer, 5, 6, 7, 8]));
   t.deepEqual(res, expected);
 });
 

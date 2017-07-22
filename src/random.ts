@@ -1,22 +1,22 @@
 import { randomBytes } from "crypto";
 
+const FLOAT_SIZE = 4;
+
 export interface IOptions {
   NaNValue: number;
 }
 
 export class Random {
 
-  private readonly FLOAT_SIZE: number = 4;
-
-  constructor(private options: IOptions = { NaNValue: NaN }) { }
+  constructor(private options: IOptions = { NaNValue: 0.5 }) { }
 
   public floatFromBuffer(quantity: number, buf: Buffer, fractionDigits: number = 15): number[] {
     const result: number[] = [];
-    if (buf.length < (quantity * this.FLOAT_SIZE)) {
+    if (buf.length < (quantity * FLOAT_SIZE)) {
       throw new Error("Buffer too small");
     }
     for (let i = 0; i < quantity; i++) {
-      const float = buf.readFloatBE(i * this.FLOAT_SIZE, true);
+      const float = buf.readFloatBE(i * FLOAT_SIZE, true);
       if (isNaN(float)) {
         result.push(this.options.NaNValue);
       } else {
@@ -32,12 +32,13 @@ export class Random {
 
   public async getRandoms(quantity: number): Promise<number[]> {
 
-    return new Promise<number[]>((resolve, reject) => setTimeout(() => {
-      randomBytes(quantity * this.FLOAT_SIZE, (err, buf) => {
+    return new Promise<number[]>((resolve, reject) => {
+      randomBytes(quantity * FLOAT_SIZE, (err, buf) => {
         if (err) { reject(err); }
         resolve(this.floatFromBuffer(quantity, buf));
       });
-    }, 3000));
+    });
+
   }
 
   // public async getRandom(): Promise<number> {
