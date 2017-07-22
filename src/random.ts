@@ -22,8 +22,8 @@ export class Random {
       } else {
         const absf = Math.abs(float);
         const exp = absf.toExponential(fractionDigits);
-        const digits = exp.slice(2, fractionDigits + 2);
-        const got = +("0.".concat(digits));
+        const fraction = exp.slice(2, fractionDigits + 2);
+        const got = +("0.".concat(fraction));
         result.push(got);
       }
     }
@@ -41,22 +41,9 @@ export class Random {
 
   }
 
-  // public async getRandom(): Promise<number> {
-  //   randomBytes(4, (_err, buf) => {
-  //     // const S = 15;
-  //     // const float = buf.readFloatBE(0, true);
-  //     // const absf = Math.abs(float);
-  //     // const exp = absf.toExponential(S);
-  //     // const ag = exp.slice(2, S + 2);
-  //     // const na = +("0.".concat(ag));
-  //     console.log(absf, exp, ag, na);
-  //   });
-  //   return new Promise<number>((resolve) => setTimeout(() => resolve(Math.random()), 3000));
-  // }
-
-  // public async getFloat(quantity: number = 1): Promise<number[]> {
-  //   return [];
-  // }
+  public async getRandom(): Promise<number> {
+    return this.getRandoms(1).then(rnds => rnds[0]);
+  }
 }
 
 export const NanBuffer = [127, 192, 0, 1];
