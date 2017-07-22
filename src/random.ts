@@ -31,18 +31,19 @@ export class Random {
   }
 
   public async getRandoms(quantity: number): Promise<number[]> {
+    return Promise.resolve(this.getRandomsSync(quantity));
+  }
 
-    return new Promise<number[]>((resolve, reject) => {
-      randomBytes(quantity * FLOAT_SIZE, (err, buf) => {
-        if (err) { reject(err); }
-        resolve(this.floatFromBuffer(quantity, buf));
-      });
-    });
-
+  public getRandomsSync(quantity: number = 1): number[] {
+    return this.floatFromBuffer(quantity, randomBytes(quantity * FLOAT_SIZE));
   }
 
   public async getRandom(): Promise<number> {
-    return this.getRandoms(1).then((rnds) => rnds[0]);
+    return Promise.resolve(this.getRandomSync());
+  }
+
+  public getRandomSync(): number {
+    return this.getRandomsSync(1)[0];
   }
 }
 
