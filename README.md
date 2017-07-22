@@ -3,4 +3,4 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 # gb-random
-An alternative implementation of Math.random using Node's crypto.getRandomBytes
+An alternative implementation of Math.random using crypto.getRandomBytes

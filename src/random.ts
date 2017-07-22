@@ -42,7 +42,7 @@ export class Random {
   }
 
   public async getRandom(): Promise<number> {
-    return this.getRandoms(1).then(rnds => rnds[0]);
+    return this.getRandoms(1).then((rnds) => rnds[0]);
   }
 }
 
